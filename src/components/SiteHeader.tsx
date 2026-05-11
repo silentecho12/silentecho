@@ -11,8 +11,8 @@ const NAV = [
 export function SiteHeader() {
   return (
     <header className="mx-auto flex max-w-6xl items-center justify-between px-6 py-6">
-      <Link to="/" className="text-xl font-bold">
-        Portfolio<span className="text-[var(--accent-green)]">.</span>
+      <Link to="/" className="text-xl font-bold tracking-widest animate-blink">
+        SILENT ECHO<span className="text-[var(--accent-green)]">.</span>
       </Link>
       <nav className="hidden gap-8 text-sm md:flex">
         {NAV.map((n) => (
