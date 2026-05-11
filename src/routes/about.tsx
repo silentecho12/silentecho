@@ -12,13 +12,6 @@ export const Route = createFileRoute("/about")({
   }),
 });
 
-const SKILLS = [
-  { name: "Frontend", level: 90 },
-  { name: "Backend", level: 80 },
-  { name: "UI/UX Design", level: 75 },
-  { name: "Database & APIs", level: 85 },
-];
-
 function AboutPage() {
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -44,19 +37,6 @@ function AboutPage() {
             collaborating on open-source projects.
           </p>
 
-          <div className="mt-6 space-y-4">
-            {SKILLS.map((s) => (
-              <div key={s.name}>
-                <div className="mb-1 flex justify-between text-sm">
-                  <span>{s.name}</span>
-                  <span className="text-[var(--accent-green)]">{s.level}%</span>
-                </div>
-                <div className="h-2 w-full overflow-hidden rounded-full bg-white/10">
-                  <div className="h-full rounded-full bg-[var(--accent-green)]" style={{ width: `${s.level}%` }} />
-                </div>
-              </div>
-            ))}
-          </div>
 
           <Link
             to="/contact"
