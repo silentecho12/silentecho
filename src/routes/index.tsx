@@ -7,8 +7,8 @@ export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
     meta: [
-      { title: "Vincent Stephen — Portfolio" },
-      { name: "description", content: "Portfolio of Vincent Stephen — Frontend Developer, Backend Developer and Designer." },
+      { title: "Felix Nyandiko — Portfolio" },
+      { name: "description", content: "Portfolio of Felix Nyandiko — Frontend Developer, Backend Developer and Designer." },
     ],
   }),
 });
@@ -66,7 +66,7 @@ function Index() {
 
       <main className="mx-auto grid max-w-6xl items-center gap-10 px-6 py-16 md:grid-cols-2">
         <section>
-          <h1 className="text-5xl font-extrabold tracking-tight md:text-6xl">Vincent Stephen</h1>
+          <h1 className="whitespace-pre-line text-5xl font-extrabold tracking-tight md:text-6xl">{"Felix\nNyandiko"}</h1>
           <h2 className="mt-3 text-2xl font-semibold md:text-3xl">
             I'm a{" "}
             <span className="text-[var(--accent-green)]">
@@ -103,7 +103,7 @@ function Index() {
           <div className="absolute inset-0 rounded-full border-2 border-[var(--accent-green)]" style={{ clipPath: "polygon(0 0, 100% 0, 100% 70%, 70% 100%, 0 100%)" }} />
           <img
             src={portrait}
-            alt="Vincent Stephen portrait"
+            alt="Felix Nyandiko portrait"
             width={800}
             height={800}
             className="absolute inset-4 h-[calc(100%-2rem)] w-[calc(100%-2rem)] rounded-full object-cover"
