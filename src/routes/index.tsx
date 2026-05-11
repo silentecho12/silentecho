@@ -1,7 +1,8 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Github, Linkedin, Twitter, Youtube, Download } from "lucide-react";
 import portrait from "@/assets/portrait.jpg";
+import { SiteHeader } from "@/components/SiteHeader";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -45,24 +46,9 @@ function useTypewriter(words: string[], typeMs = 90, deleteMs = 50, pauseMs = 14
 function Index() {
   const typed = useTypewriter(ROLES);
 
-  const nav = ["Home", "About", "Portfolio", "Services", "Contact"];
-
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <header className="mx-auto flex max-w-6xl items-center justify-between px-6 py-6">
-        <a href="#" className="text-xl font-bold">Portfolio<span className="text-[var(--accent-green)]">.</span></a>
-        <nav className="hidden gap-8 text-sm md:flex">
-          {nav.map((n, idx) => (
-            <a
-              key={n}
-              href="#"
-              className={idx === 0 ? "text-[var(--accent-green)]" : "hover:text-[var(--accent-green)] transition-colors"}
-            >
-              {n}
-            </a>
-          ))}
-        </nav>
-      </header>
+      <SiteHeader />
 
       <main className="mx-auto grid max-w-6xl items-center gap-10 px-6 py-16 md:grid-cols-2">
         <section>
@@ -81,12 +67,12 @@ function Index() {
           </p>
 
           <div className="mt-8 flex items-center gap-4">
-            <a
-              href="#"
+            <Link
+              to="/contact"
               className="inline-flex items-center gap-2 rounded-full bg-[var(--accent-green)] px-6 py-3 text-sm font-semibold text-black shadow-[0_8px_30px_-8px_var(--accent-green)] transition-transform hover:scale-105"
             >
-              <Download className="h-4 w-4" /> Download CV
-            </a>
+              <Download className="h-4 w-4" /> Hire Me
+            </Link>
             {[Github, Linkedin, Twitter, Youtube].map((Icon, i) => (
               <a
                 key={i}
