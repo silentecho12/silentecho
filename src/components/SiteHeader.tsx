@@ -26,6 +26,7 @@ export function SiteHeader() {
             {n.label}
           </Link>
         ))}
+        <Link to="/admin" className="text-white/30 hover:text-[var(--accent-green)] transition-colors">Admin</Link>
       </nav>
     </header>
   );
