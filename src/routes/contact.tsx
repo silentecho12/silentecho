@@ -87,7 +87,7 @@ function ContactPage() {
 
             <div className="rounded-2xl border border-[var(--accent-green)]/30 bg-[var(--accent-green)]/5 p-5 text-sm text-white/80">
               <p className="font-semibold text-[var(--accent-green)]">Fastest response</p>
-              <p className="mt-1">Messages sent through the form below open WhatsApp with your details pre-filled — usually replied within a few hours.</p>
+              <p className="mt-1">Have a project in mind or just want to say hi? Send a message.</p>
             </div>
           </div>
 
