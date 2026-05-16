@@ -1,8 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Github, Linkedin, Twitter, Youtube, Download } from "lucide-react";
 import portrait from "@/assets/portrait.jpg";
 import { SiteHeader } from "@/components/SiteHeader";
+import { useSiteContent } from "@/lib/content";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -13,8 +14,6 @@ export const Route = createFileRoute("/")({
     ],
   }),
 });
-
-const ROLES = ["Frontend Developer", "Backend Developer", "Designer"];
 
 function useTypewriter(words: string[], typeMs = 90, deleteMs = 50, pauseMs = 1400) {
   const [text, setText] = useState("");
@@ -44,7 +43,15 @@ function useTypewriter(words: string[], typeMs = 90, deleteMs = 50, pauseMs = 14
 }
 
 function Index() {
-  const typed = useTypewriter(ROLES);
+  const { data: content } = useSiteContent();
+  const roles = useMemo(
+    () => (content?.home_roles ?? "Frontend Developer,Backend Developer,Designer")
+      .split(",").map((s) => s.trim()).filter(Boolean),
+    [content?.home_roles],
+  );
+  const typed = useTypewriter(roles);
+  const name = (content?.home_name ?? "Felix\nNyandiko").replace(/\\n/g, "\n");
+  const intro = content?.home_intro ?? "I'm a";
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -52,9 +59,9 @@ function Index() {
 
       <main className="mx-auto grid max-w-6xl items-center gap-10 px-6 py-16 md:grid-cols-2">
         <section>
-          <h1 className="whitespace-pre-line text-5xl font-extrabold tracking-tight md:text-6xl">{"Felix\nNyandiko"}</h1>
+          <h1 className="whitespace-pre-line text-5xl font-extrabold tracking-tight md:text-6xl">{name}</h1>
           <h2 className="mt-3 text-2xl font-semibold md:text-3xl">
-            I'm a{" "}
+            {intro}{" "}
             <span className="text-[var(--accent-green)]">
               {typed}
               <span className="ml-0.5 inline-block w-[2px] animate-pulse bg-[var(--accent-green)]" style={{ height: "1em", verticalAlign: "-0.15em" }} />
