@@ -4,6 +4,7 @@ import { Mail, Phone, MessageCircle, Send } from "lucide-react";
 import { z } from "zod";
 import { SiteHeader } from "@/components/SiteHeader";
 import { CONTACT } from "@/lib/contact";
+import { useSiteContent } from "@/lib/content";
 
 export const Route = createFileRoute("/contact")({
   component: ContactPage,
@@ -23,6 +24,12 @@ const schema = z.object({
 });
 
 function ContactPage() {
+  const { data: content } = useSiteContent();
+  const whatsapp = content?.contact_whatsapp || CONTACT.primaryWhatsApp;
+  const phonePrimary = content?.contact_phone_primary || CONTACT.phones[0];
+  const phoneSecondary = content?.contact_phone_secondary || CONTACT.phones[1];
+  const email = content?.contact_email || CONTACT.email;
+
   const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
   const [errors, setErrors] = useState<Partial<Record<keyof typeof form, string>>>({});
 
@@ -49,7 +56,7 @@ function ContactPage() {
       `*Email:* ${encodeURIComponent(email)}%0A` +
       `*Subject:* ${encodeURIComponent(subject)}%0A%0A` +
       `${encodeURIComponent(message)}`;
-    window.open(`https://wa.me/${CONTACT.primaryWhatsApp}?text=${text}`, "_blank", "noopener,noreferrer");
+    window.open(`https://wa.me/${whatsapp}?text=${text}`, "_blank", "noopener,noreferrer");
   };
 
   return (
@@ -66,24 +73,10 @@ function ContactPage() {
 
         <div className="mt-10 grid gap-10 md:grid-cols-2">
           <div className="space-y-5">
-            <ContactRow
-              icon={MessageCircle}
-              label="WhatsApp"
-              value={`+${CONTACT.phones[0]}`}
-              href={`https://wa.me/${CONTACT.phones[0]}`}
-            />
-            <ContactRow
-              icon={Phone}
-              label="Phone"
-              value={`+${CONTACT.phones[1]}`}
-              href={`tel:+${CONTACT.phones[1]}`}
-            />
-            <ContactRow
-              icon={Mail}
-              label="Email"
-              value={CONTACT.email}
-              href={`mailto:${CONTACT.email}`}
-            />
+            <ContactRow icon={MessageCircle} label="WhatsApp" value={`+${whatsapp}`} href={`https://wa.me/${whatsapp}`} />
+            <ContactRow icon={Phone} label="Phone" value={`+${phonePrimary}`} href={`tel:+${phonePrimary}`} />
+            <ContactRow icon={Phone} label="Phone (alt)" value={`+${phoneSecondary}`} href={`tel:+${phoneSecondary}`} />
+            <ContactRow icon={Mail} label="Email" value={email} href={`mailto:${email}`} />
 
             <div className="rounded-2xl border border-[var(--accent-green)]/30 bg-[var(--accent-green)]/5 p-5 text-sm text-white/80">
               <p className="font-semibold text-[var(--accent-green)]">Fastest response</p>
