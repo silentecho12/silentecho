@@ -1,6 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Code2, Server, Palette, Smartphone, Database, Search } from "lucide-react";
+import * as Icons from "lucide-react";
+import { Loader2 } from "lucide-react";
 import { SiteHeader } from "@/components/SiteHeader";
+import { useServices } from "@/lib/content";
 
 export const Route = createFileRoute("/services")({
   component: ServicesPage,
@@ -12,16 +14,14 @@ export const Route = createFileRoute("/services")({
   }),
 });
 
-const SERVICES = [
-  { icon: Code2, title: "Frontend Development", desc: "Modern, responsive interfaces built with React, TanStack and Tailwind." },
-  { icon: Server, title: "Backend Development", desc: "APIs, server functions and integrations with secure databases and auth." },
-  { icon: Palette, title: "UI/UX Design", desc: "Clean, accessible designs focused on usability and conversion." },
-  { icon: Smartphone, title: "Mobile-First Web", desc: "Sites and PWAs that feel native on any device, optimized for performance." },
-  { icon: Database, title: "Database & APIs", desc: "Schema design, REST/GraphQL APIs and real-time data with Postgres." },
-  { icon: Search, title: "SEO & Performance", desc: "Page speed, Core Web Vitals and SEO best practices baked in from day one." },
-];
+function ServiceIcon({ name }: { name: string }) {
+  const Cmp = (Icons as unknown as Record<string, React.ComponentType<{ className?: string }>>)[name] ?? Icons.Sparkles;
+  return <Cmp className="h-6 w-6" />;
+}
 
 function ServicesPage() {
+  const { data: services = [], isLoading } = useServices();
+
   return (
     <div className="min-h-screen bg-background text-foreground">
       <SiteHeader />
@@ -34,20 +34,24 @@ function ServicesPage() {
           End-to-end product development — from idea and design to deployment and maintenance.
         </p>
 
-        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {SERVICES.map(({ icon: Icon, title, desc }) => (
-            <div
-              key={title}
-              className="rounded-2xl border border-white/10 bg-white/[0.03] p-6 transition-colors hover:border-[var(--accent-green)]"
-            >
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[var(--accent-green)]/10 text-[var(--accent-green)]">
-                <Icon className="h-6 w-6" />
+        {isLoading ? (
+          <div className="mt-12 flex justify-center"><Loader2 className="h-6 w-6 animate-spin text-[var(--accent-green)]" /></div>
+        ) : (
+          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {services.map((s) => (
+              <div
+                key={s.id}
+                className="rounded-2xl border border-white/10 bg-white/[0.03] p-6 transition-colors hover:border-[var(--accent-green)]"
+              >
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[var(--accent-green)]/10 text-[var(--accent-green)]">
+                  <ServiceIcon name={s.icon} />
+                </div>
+                <h3 className="mt-4 text-lg font-semibold">{s.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-white/60">{s.description}</p>
               </div>
-              <h3 className="mt-4 text-lg font-semibold">{title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-white/60">{desc}</p>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
 
         <div className="mt-12 flex justify-center">
           <Link
