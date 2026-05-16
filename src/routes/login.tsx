@@ -79,7 +79,7 @@ function LoginPage() {
         </button>
 
         <p className="text-center text-[10px] text-white/40">
-          Only felixnyandiko@gmail.com receives admin access automatically.
+         Powered by SilentEcho
         </p>
       </form>
     </div>
