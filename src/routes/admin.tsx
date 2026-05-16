@@ -122,7 +122,7 @@ function PortfolioRow({ item }: { item: any }) {
     const { error } = await supabase.from("portfolio_items").update({
       title: form.title, description: form.description,
       image_url: form.image_url || null, link_url: form.link_url || null,
-      tags: form.tags.split(",").map((t) => t.trim()).filter(Boolean),
+      tags: form.tags.split(",").map((t: string) => t.trim()).filter(Boolean),
       sort_order: Number(form.sort_order) || 0,
     }).eq("id", item.id);
     setSaving(false);
