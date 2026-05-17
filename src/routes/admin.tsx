@@ -116,6 +116,25 @@ function PortfolioRow({ item }: { item: any }) {
     link_url: item.link_url ?? "", tags: (item.tags ?? []).join(", "), sort_order: item.sort_order,
   });
   const [saving, setSaving] = useState(false);
+  const [uploading, setUploading] = useState(false);
+
+  const onUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setUploading(true);
+    const ext = file.name.split(".").pop() || "jpg";
+    const path = `${item.id}/${Date.now()}.${ext}`;
+    const { error: upErr } = await supabase.storage.from("portfolio-images").upload(path, file, { upsert: true });
+    if (upErr) { setUploading(false); return alert(upErr.message); }
+    const { data } = supabase.storage.from("portfolio-images").getPublicUrl(path);
+    const publicUrl = data.publicUrl;
+    const { error: updErr } = await supabase.from("portfolio_items").update({ image_url: publicUrl }).eq("id", item.id);
+    setUploading(false);
+    if (updErr) return alert(updErr.message);
+    setForm((f) => ({ ...f, image_url: publicUrl }));
+    qc.invalidateQueries({ queryKey: ["admin-portfolio"] });
+    qc.invalidateQueries({ queryKey: ["portfolio"] });
+  };
 
   const save = async () => {
     setSaving(true);
@@ -144,8 +163,21 @@ function PortfolioRow({ item }: { item: any }) {
       <Input label="Title" value={form.title} onChange={(v) => setForm({ ...form, title: v })} />
       <Textarea label="Description" value={form.description} onChange={(v) => setForm({ ...form, description: v })} />
       <Input label="Tags (comma-separated)" value={form.tags} onChange={(v) => setForm({ ...form, tags: v })} />
+      <div className="space-y-2">
+        <span className="block text-[11px] uppercase tracking-widest text-white/50">Project image</span>
+        {form.image_url && (
+          <img src={form.image_url} alt="" className="h-32 w-full max-w-xs rounded-lg border border-white/10 object-cover" />
+        )}
+        <div className="flex items-center gap-3">
+          <label className="inline-flex cursor-pointer items-center gap-1.5 rounded-full border border-white/20 px-3 py-1.5 text-xs hover:bg-white/5">
+            {uploading ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : null}
+            {uploading ? "Uploading…" : (form.image_url ? "Replace image" : "Upload image")}
+            <input type="file" accept="image/*" className="hidden" onChange={onUpload} disabled={uploading} />
+          </label>
+        </div>
+      </div>
       <div className="grid gap-3 md:grid-cols-2">
-        <Input label="Image URL" value={form.image_url} onChange={(v) => setForm({ ...form, image_url: v })} />
+        <Input label="Image URL (auto-filled on upload)" value={form.image_url} onChange={(v) => setForm({ ...form, image_url: v })} />
         <Input label="Project link" value={form.link_url} onChange={(v) => setForm({ ...form, link_url: v })} />
       </div>
       <Input label="Sort order" type="number" value={String(form.sort_order)} onChange={(v) => setForm({ ...form, sort_order: Number(v) })} />
