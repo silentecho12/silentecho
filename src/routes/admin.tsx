@@ -116,6 +116,25 @@ function PortfolioRow({ item }: { item: any }) {
     link_url: item.link_url ?? "", tags: (item.tags ?? []).join(", "), sort_order: item.sort_order,
   });
   const [saving, setSaving] = useState(false);
+  const [uploading, setUploading] = useState(false);
+
+  const onUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setUploading(true);
+    const ext = file.name.split(".").pop() || "jpg";
+    const path = `${item.id}/${Date.now()}.${ext}`;
+    const { error: upErr } = await supabase.storage.from("portfolio-images").upload(path, file, { upsert: true });
+    if (upErr) { setUploading(false); return alert(upErr.message); }
+    const { data } = supabase.storage.from("portfolio-images").getPublicUrl(path);
+    const publicUrl = data.publicUrl;
+    const { error: updErr } = await supabase.from("portfolio_items").update({ image_url: publicUrl }).eq("id", item.id);
+    setUploading(false);
+    if (updErr) return alert(updErr.message);
+    setForm((f) => ({ ...f, image_url: publicUrl }));
+    qc.invalidateQueries({ queryKey: ["admin-portfolio"] });
+    qc.invalidateQueries({ queryKey: ["portfolio"] });
+  };
 
   const save = async () => {
     setSaving(true);
