@@ -7,39 +7,46 @@ import { Trash2, Plus, Save, LogOut, Loader2 } from "lucide-react";
 
 export const Route = createFileRoute("/admin")({
   component: AdminPage,
-  head: () => ({ meta: [{ title: "Admin — Felix Nyandiko" }] }),
+  head: () => ({
+    meta: [
+      { title: "404 — Page not found" },
+      { name: "robots", content: "noindex, nofollow" },
+    ],
+  }),
 });
 
 type Tab = "portfolio" | "services" | "content";
+
+function NotFound() {
+  return (
+    <div className="flex min-h-screen items-center justify-center bg-background px-4">
+      <div className="max-w-md text-center">
+        <h1 className="text-7xl font-bold text-foreground">404</h1>
+        <h2 className="mt-4 text-xl font-semibold text-foreground">Page not found</h2>
+        <p className="mt-2 text-sm text-muted-foreground">
+          The page you're looking for doesn't exist or has been moved.
+        </p>
+        <div className="mt-6">
+          <Link
+            to="/"
+            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+          >
+            Go home
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 function AdminPage() {
   const { session, isAdmin, loading } = useAuth();
   const navigate = useNavigate();
   const [tab, setTab] = useState<Tab>("portfolio");
 
-  useEffect(() => {
-    if (!loading && !session) navigate({ to: "/login" });
-  }, [session, loading, navigate]);
-
   if (loading) return <Center><Loader2 className="h-6 w-6 animate-spin" /></Center>;
-  if (!session) return null;
+  if (!session || !isAdmin) return <NotFound />;
 
-  if (!isAdmin) {
-    return (
-      <Center>
-        <div className="text-center space-y-4">
-          <h1 className="text-2xl font-bold">Access denied</h1>
-          <p className="text-sm text-white/60 max-w-sm">
-            Your account ({session.user.email}) does not have admin privileges.
-          </p>
-          <button
-            onClick={() => supabase.auth.signOut().then(() => navigate({ to: "/login" }))}
-            className="rounded-full bg-[var(--accent-green)] px-5 py-2 text-sm font-semibold text-black"
-          >Sign out</button>
-        </div>
-      </Center>
-    );
-  }
 
   return (
     <div className="min-h-screen bg-background text-foreground">
