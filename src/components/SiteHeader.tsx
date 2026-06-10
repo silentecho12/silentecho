@@ -29,7 +29,6 @@ export function SiteHeader() {
             {n.label}
           </Link>
         ))}
-        <Link to="/admin" className="text-foreground/30 hover:text-[var(--accent-green)] transition-colors">Admin</Link>
         <button
           type="button"
           onClick={toggle}
