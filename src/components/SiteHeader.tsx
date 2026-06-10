@@ -1,4 +1,6 @@
 import { Link } from "@tanstack/react-router";
+import { Moon, Sun } from "lucide-react";
+import { useTheme } from "@/lib/useTheme";
 
 const NAV = [
   { to: "/", label: "Home" },
@@ -9,12 +11,13 @@ const NAV = [
 ] as const;
 
 export function SiteHeader() {
+  const { theme, toggle } = useTheme();
   return (
     <header className="mx-auto flex max-w-6xl items-center justify-between px-6 py-6">
       <Link to="/" className="text-xl font-bold tracking-widest animate-blink">
         SILENT ECHO<span className="text-[var(--accent-green)]">.</span>
       </Link>
-      <nav className="hidden gap-8 text-sm md:flex">
+      <nav className="hidden items-center gap-8 text-sm md:flex">
         {NAV.map((n) => (
           <Link
             key={n.to}
@@ -26,7 +29,15 @@ export function SiteHeader() {
             {n.label}
           </Link>
         ))}
-        <Link to="/admin" className="text-white/30 hover:text-[var(--accent-green)] transition-colors">Admin</Link>
+        <Link to="/admin" className="text-foreground/30 hover:text-[var(--accent-green)] transition-colors">Admin</Link>
+        <button
+          type="button"
+          onClick={toggle}
+          aria-label="Toggle theme"
+          className="rounded-full border border-foreground/15 p-2 hover:border-[var(--accent-green)] hover:text-[var(--accent-green)] transition-colors"
+        >
+          {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+        </button>
       </nav>
     </header>
   );
