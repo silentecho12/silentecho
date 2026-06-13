@@ -36,11 +36,14 @@ function useTypewriter(words: string[], typeMs = 90, deleteMs = 50, pauseMs = 14
       setI((p) => (p + 1) % words.length);
       return;
     }
-    const t = setTimeout(() => {
-      setText((prev) =>
-        deleting ? current.substring(0, prev.length - 1) : current.substring(0, prev.length + 1),
-      );
-    },
+    const t = setTimeout(
+      () => {
+        setText((prev) =>
+          deleting
+            ? current.substring(0, prev.length - 1)
+            : current.substring(0, prev.length + 1),
+        );
+      },
       deleting ? deleteMs : typeMs,
     );
     return () => clearTimeout(t);
