@@ -39,9 +39,7 @@ function useTypewriter(words: string[], typeMs = 90, deleteMs = 50, pauseMs = 14
     const t = setTimeout(
       () => {
         setText((prev) =>
-          deleting
-            ? current.substring(0, prev.length - 1)
-            : current.substring(0, prev.length + 1),
+          deleting ? current.substring(0, prev.length - 1) : current.substring(0, prev.length + 1),
         );
       },
       deleting ? deleteMs : typeMs,
