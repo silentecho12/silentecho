@@ -37,8 +37,11 @@ function useTypewriter(words: string[], typeMs = 90, deleteMs = 50, pauseMs = 14
       return;
     }
     const t = setTimeout(() => {
-      setText((prev) =>
-        deleting ? current.substring(0, prev.length - 1) : current.substring(0, prev.length + 1),
+      setText(
+        (prev) =>
+          deleting
+            ? current.substring(0, prev.length - 1)
+            : current.substring(0, prev.length + 1),
       );
     }, deleting ? deleteMs : typeMs);
     return () => clearTimeout(t);
@@ -85,8 +88,8 @@ function Index() {
             </span>
           </h2>
           <p className="mt-5 max-w-md text-sm leading-relaxed text-muted-foreground">
-            Hello, welcome to my portfolio website! I'm passionate about creating responsive
-            and user-friendly websites. My goal is to build websites that are not only visually
+            Hello, welcome to my portfolio website! I'm passionate about creating responsive and
+            user-friendly websites. My goal is to build websites that are not only visually
             appealing but also functional and accessible to all users.
           </p>
 

@@ -39,8 +39,7 @@ function ContactPage() {
   const [errors, setErrors] = useState<Partial<Record<keyof typeof form, string>>>({});
   const [isSending, setIsSending] = useState(false);
 
-  const update =
-    (k: keyof typeof form) =>
+  const update = (k: keyof typeof form) =>
     (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
       setForm((f) => ({ ...f, [k]: e.target.value }));
 
