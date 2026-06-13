@@ -172,7 +172,11 @@ function ContactPage() {
               className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-[var(--accent-green)] px-6 py-3 text-sm font-semibold text-black transition-transform hover:scale-[1.02]"
             >
               <motion.span
-                animate={isSending ? { x: [0, 14, 34], y: [0, -8, -22], opacity: [1, 1, 0] } : { x: 0, y: 0, opacity: 1 }}
+                animate={
+                  isSending
+                    ? { x: [0, 14, 34], y: [0, -8, -22], opacity: [1, 1, 0] }
+                    : { x: 0, y: 0, opacity: 1 }
+                }
                 transition={{ duration: 0.5, ease: "easeOut" }}
               >
                 <Send className="h-4 w-4" />
@@ -235,10 +239,20 @@ function ContactRow({
   );
 }
 
-function Field({ label, error, children }: { label: string; error?: string; children: React.ReactNode }) {
+function Field({
+  label,
+  error,
+  children,
+}: {
+  label: string;
+  error?: string;
+  children: React.ReactNode;
+}) {
   return (
     <label className="block">
-      <span className="mb-1.5 block text-xs font-medium uppercase tracking-widest text-muted-foreground">{label}</span>
+      <span className="mb-1.5 block text-xs font-medium uppercase tracking-widest text-muted-foreground">
+        {label}
+      </span>
       {children}
       {error ? <span className="mt-1 block text-xs text-red-400">{error}</span> : null}
     </label>
