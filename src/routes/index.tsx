@@ -11,7 +11,11 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "Felix Nyandiko — Portfolio" },
-      { name: "description", content: "Portfolio of Felix Nyandiko — Frontend Developer, Backend Developer and Designer." },
+      {
+        name: "description",
+        content:
+          "Portfolio of Felix Nyandiko — Frontend Developer, Backend Developer and Designer.",
+      },
     ],
   }),
 });
@@ -46,8 +50,11 @@ function useTypewriter(words: string[], typeMs = 90, deleteMs = 50, pauseMs = 14
 function Index() {
   const { data: content } = useSiteContent();
   const roles = useMemo(
-    () => (content?.home_roles ?? "Frontend Developer,Backend Developer,Designer")
-      .split(",").map((s) => s.trim()).filter(Boolean),
+    () =>
+      (content?.home_roles ?? "Frontend Developer,Backend Developer,Designer")
+        .split(",")
+        .map((s) => s.trim())
+        .filter(Boolean),
     [content?.home_roles],
   );
   const typed = useTypewriter(roles);
@@ -64,12 +71,17 @@ function Index() {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         >
-          <h1 className="whitespace-pre-line text-5xl font-extrabold tracking-tight md:text-6xl">{name}</h1>
+          <h1 className="whitespace-pre-line text-5xl font-extrabold tracking-tight md:text-6xl">
+            {name}
+          </h1>
           <h2 className="mt-3 text-2xl font-semibold md:text-3xl">
             {intro}{" "}
             <span className="text-[var(--accent-green)]">
               {typed}
-              <span className="ml-0.5 inline-block w-[2px] animate-pulse bg-[var(--accent-green)]" style={{ height: "1em", verticalAlign: "-0.15em" }} />
+              <span
+                className="ml-0.5 inline-block w-[2px] animate-pulse bg-[var(--accent-green)]"
+                style={{ height: "1em", verticalAlign: "-0.15em" }}
+              />
             </span>
           </h2>
           <p className="mt-5 max-w-md text-sm leading-relaxed text-muted-foreground">
@@ -107,7 +119,9 @@ function Index() {
             animate={{ rotate: [0, 2, 0, -2, 0] }}
             transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
             className="absolute inset-0 rounded-full border-2 border-[var(--accent-green)]"
-            style={{ clipPath: "polygon(0 0, 100% 0, 100% 70%, 70% 100%, 0 100%)" }}
+            style={{
+              clipPath: "polygon(0 0, 100% 0, 100% 70%, 70% 100%, 0 100%)",
+            }}
           />
           <img
             src={portrait}
