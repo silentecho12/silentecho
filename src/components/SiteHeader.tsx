@@ -17,7 +17,8 @@ export function SiteHeader() {
       <Link to="/" className="text-xl font-bold tracking-widest animate-blink">
         SILENT ECHO<span className="text-[var(--accent-green)]">.</span>
       </Link>
-      <nav className="hidden items-center gap-8 text-sm md:flex">
+      <div className="flex items-center gap-3">
+        <nav className="hidden items-center gap-8 text-sm md:flex">
         {NAV.map((n) => (
           <Link
             key={n.to}
@@ -29,6 +30,7 @@ export function SiteHeader() {
             {n.label}
           </Link>
         ))}
+        </nav>
         <button
           type="button"
           onClick={toggle}
@@ -37,7 +39,7 @@ export function SiteHeader() {
         >
           {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
         </button>
-      </nav>
+      </div>
     </header>
   );
 }
