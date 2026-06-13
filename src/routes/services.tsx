@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { motion } from "framer-motion";
 import * as Icons from "lucide-react";
 import { Loader2 } from "lucide-react";
 import { SiteHeader } from "@/components/SiteHeader";
@@ -25,12 +26,17 @@ function ServicesPage() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <SiteHeader />
-      <main className="mx-auto max-w-6xl px-6 py-16">
+      <motion.main
+        initial={{ opacity: 0, y: 18 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+        className="mx-auto max-w-6xl px-6 py-16"
+      >
         <p className="text-sm font-semibold uppercase tracking-widest text-[var(--accent-green)]">Services</p>
         <h1 className="mt-2 text-4xl font-extrabold tracking-tight md:text-5xl">
           What I <span className="text-[var(--accent-green)]">Offer</span>
         </h1>
-        <p className="mt-3 max-w-2xl text-sm text-white/70">
+        <p className="mt-3 max-w-2xl text-sm text-muted-foreground">
           End-to-end product development — from idea and design to deployment and maintenance.
         </p>
 
@@ -39,16 +45,18 @@ function ServicesPage() {
         ) : (
           <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {services.map((s) => (
-              <div
+              <motion.div
                 key={s.id}
-                className="rounded-2xl border border-white/10 bg-white/[0.03] p-6 transition-colors hover:border-[var(--accent-green)]"
+                whileHover={{ y: -5 }}
+                transition={{ type: "spring", stiffness: 260, damping: 24 }}
+                className="rounded-2xl border border-border bg-card/40 p-6 transition-colors hover:border-[var(--accent-green)]"
               >
                 <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[var(--accent-green)]/10 text-[var(--accent-green)]">
                   <ServiceIcon name={s.icon} />
                 </div>
                 <h3 className="mt-4 text-lg font-semibold">{s.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-white/60">{s.description}</p>
-              </div>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{s.description}</p>
+              </motion.div>
             ))}
           </div>
         )}
@@ -61,7 +69,7 @@ function ServicesPage() {
             Start a project
           </Link>
         </div>
-      </main>
+      </motion.main>
     </div>
   );
 }
