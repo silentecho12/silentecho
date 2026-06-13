@@ -12,7 +12,11 @@ export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
       { title: "Contact — Felix Nyandiko" },
-      { name: "description", content: "Reach Felix Nyandiko via WhatsApp, phone or email. Let's build something great together." },
+      {
+        name: "description",
+        content:
+          "Reach Felix Nyandiko via WhatsApp, phone or email. Let's build something great together.",
+      },
     ],
   }),
 });
@@ -35,8 +39,10 @@ function ContactPage() {
   const [errors, setErrors] = useState<Partial<Record<keyof typeof form, string>>>({});
   const [isSending, setIsSending] = useState(false);
 
-  const update = (k: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
-    setForm((f) => ({ ...f, [k]: e.target.value }));
+  const update =
+    (k: keyof typeof form) =>
+    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+      setForm((f) => ({ ...f, [k]: e.target.value }));
 
   const sendViaWhatsApp = (e: React.FormEvent) => {
     e.preventDefault();
@@ -74,19 +80,37 @@ function ContactPage() {
         transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
         className="mx-auto max-w-6xl px-6 py-16"
       >
-        <p className="text-sm font-semibold uppercase tracking-widest text-[var(--accent-green)]">Contact</p>
+        <p className="text-sm font-semibold uppercase tracking-widest text-[var(--accent-green)]">
+          Contact
+        </p>
         <h1 className="mt-2 text-4xl font-extrabold tracking-tight md:text-5xl">
           Let's <span className="text-[var(--accent-green)]">talk</span>
         </h1>
         <p className="mt-3 max-w-2xl text-sm text-muted-foreground">
-          Have a project in mind or just want to say hi? Send a message and it'll reach me on WhatsApp instantly.
+          Have a project in mind or just want to say hi? Send a message and it'll reach me on
+          WhatsApp instantly.
         </p>
 
         <div className="mt-10 grid gap-10 md:grid-cols-2">
           <div className="space-y-5">
-            <ContactRow icon={MessageCircle} label="WhatsApp" value={`+${whatsapp}`} href={`https://wa.me/${whatsapp}`} />
-            <ContactRow icon={Phone} label="Phone" value={`+${phonePrimary}`} href={`tel:+${phonePrimary}`} />
-            <ContactRow icon={Phone} label="Phone (alt)" value={`+${phoneSecondary}`} href={`tel:+${phoneSecondary}`} />
+            <ContactRow
+              icon={MessageCircle}
+              label="WhatsApp"
+              value={`+${whatsapp}`}
+              href={`https://wa.me/${whatsapp}`}
+            />
+            <ContactRow
+              icon={Phone}
+              label="Phone"
+              value={`+${phonePrimary}`}
+              href={`tel:+${phonePrimary}`}
+            />
+            <ContactRow
+              icon={Phone}
+              label="Phone (alt)"
+              value={`+${phoneSecondary}`}
+              href={`tel:+${phoneSecondary}`}
+            />
             <ContactRow icon={Mail} label="Email" value={email} href={`mailto:${email}`} />
 
             <div className="rounded-2xl border border-[var(--accent-green)]/30 bg-[var(--accent-green)]/5 p-5 text-sm text-muted-foreground">
