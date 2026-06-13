@@ -9,7 +9,11 @@ export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
       { title: "About — Felix Nyandiko" },
-      { name: "description", content: "Learn more about Felix Nyandiko — a Kenyan developer and designer building modern web experiences." },
+      {
+        name: "description",
+        content:
+          "Learn more about Felix Nyandiko — a Kenyan developer and designer building modern web experiences.",
+      },
     ],
   }),
 });
@@ -36,13 +40,23 @@ function AboutPage() {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
         >
-          <p className="text-sm font-semibold uppercase tracking-widest text-[var(--accent-green)]">{headline}</p>
+          <p className="text-sm font-semibold uppercase tracking-widest text-[var(--accent-green)]">
+            {headline}
+          </p>
           <h1 className="mt-2 text-4xl font-extrabold tracking-tight md:text-5xl">
             A passionate <span className="text-[var(--accent-green)]">developer</span> from Kenya
           </h1>
-          {bio.split("\n").filter(Boolean).map((para, i) => (
-            <p key={i} className="mt-5 text-sm leading-relaxed text-muted-foreground whitespace-pre-line">{para}</p>
-          ))}
+          {bio
+            .split("\n")
+            .filter(Boolean)
+            .map((para, i) => (
+              <p
+                key={i}
+                className="mt-5 text-sm leading-relaxed text-muted-foreground whitespace-pre-line"
+              >
+                {para}
+              </p>
+            ))}
 
           <Link
             to="/contact"
