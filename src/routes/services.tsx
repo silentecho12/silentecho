@@ -65,7 +65,9 @@ function ServicesPage() {
                   <ServiceIcon name={s.icon} />
                 </div>
                 <h3 className="mt-4 text-lg font-semibold">{s.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{s.description}</p>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                  {s.description}
+                </p>
               </motion.div>
             ))}
           </div>

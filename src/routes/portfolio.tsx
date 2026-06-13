@@ -36,7 +36,8 @@ function PortfolioPage() {
           Recent <span className="text-[var(--accent-green)]">Work</span>
         </h1>
         <p className="mt-3 max-w-2xl text-sm text-muted-foreground">
-          A selection of projects I've shipped recently — spanning full-stack apps, dashboards and design work.
+          A selection of projects I've shipped recently — spanning full-stack apps, dashboards and
+          design work.
         </p>
 
         {isLoading ? (
@@ -72,7 +73,9 @@ function PortfolioPage() {
                   ))}
                 </div>
                 <h3 className="mt-3 text-lg font-semibold">{p.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{p.description}</p>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                  {p.description}
+                </p>
                 {p.link_url && (
                   <a
                     href={p.link_url}
