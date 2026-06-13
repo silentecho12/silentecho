@@ -47,19 +47,19 @@ function LoginPage() {
 
   return (
     <div className="min-h-screen bg-background text-foreground flex items-center justify-center px-6">
-      <form onSubmit={submit} className="w-full max-w-sm space-y-4 rounded-2xl border border-white/10 bg-white/[0.03] p-8">
+      <form onSubmit={submit} className="w-full max-w-sm space-y-4 rounded-2xl border border-border bg-card/40 p-8">
         <Link to="/" className="block text-center text-xs uppercase tracking-widest text-[var(--accent-green)]">SILENT ECHO</Link>
         <h1 className="text-center text-2xl font-bold">{mode === "signup" ? "Create admin account" : "Admin sign in"}</h1>
 
         <input
           type="email" required value={email} onChange={(e) => setEmail(e.target.value)}
           placeholder="Email"
-          className="w-full rounded-lg border border-white/10 bg-white/5 px-3 py-2.5 text-sm outline-none focus:border-[var(--accent-green)]"
+          className="w-full rounded-lg border border-border bg-background/60 px-3 py-2.5 text-sm outline-none focus:border-[var(--accent-green)]"
         />
         <input
           type="password" required minLength={6} value={password} onChange={(e) => setPassword(e.target.value)}
           placeholder="Password (min 6 chars)"
-          className="w-full rounded-lg border border-white/10 bg-white/5 px-3 py-2.5 text-sm outline-none focus:border-[var(--accent-green)]"
+          className="w-full rounded-lg border border-border bg-background/60 px-3 py-2.5 text-sm outline-none focus:border-[var(--accent-green)]"
         />
 
         {error && <p className="text-xs text-red-400">{error}</p>}
@@ -73,12 +73,12 @@ function LoginPage() {
 
         <button
           type="button" onClick={() => setMode(mode === "signup" ? "signin" : "signup")}
-          className="w-full text-xs text-white/60 hover:text-white"
+          className="w-full text-xs text-muted-foreground hover:text-foreground"
         >
           {mode === "signup" ? "Already have an account? Sign in" : "First time? Create your admin account"}
         </button>
 
-        <p className="text-center text-[10px] text-white/40">
+        <p className="text-center text-[10px] text-muted-foreground">
          Powered by SilentEcho
         </p>
       </form>
