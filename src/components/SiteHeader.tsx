@@ -19,17 +19,17 @@ export function SiteHeader() {
       </Link>
       <div className="flex items-center gap-3">
         <nav className="hidden items-center gap-8 text-sm md:flex">
-        {NAV.map((n) => (
-          <Link
-            key={n.to}
-            to={n.to}
-            activeOptions={{ exact: true }}
-            activeProps={{ className: "text-[var(--accent-green)]" }}
-            className="hover:text-[var(--accent-green)] transition-colors"
-          >
-            {n.label}
-          </Link>
-        ))}
+          {NAV.map((n) => (
+            <Link
+              key={n.to}
+              to={n.to}
+              activeOptions={{ exact: true }}
+              activeProps={{ className: "text-[var(--accent-green)]" }}
+              className="hover:text-[var(--accent-green)] transition-colors"
+            >
+              {n.label}
+            </Link>
+          ))}
         </nav>
         <button
           type="button"
