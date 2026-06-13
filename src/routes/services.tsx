@@ -10,13 +10,19 @@ export const Route = createFileRoute("/services")({
   head: () => ({
     meta: [
       { title: "Services — Felix Nyandiko" },
-      { name: "description", content: "Services offered by Felix Nyandiko: frontend, backend, UI/UX, mobile-first design and SEO." },
+      {
+        name: "description",
+        content:
+          "Services offered by Felix Nyandiko: frontend, backend, UI/UX, mobile-first design and SEO.",
+      },
     ],
   }),
 });
 
 function ServiceIcon({ name }: { name: string }) {
-  const Cmp = (Icons as unknown as Record<string, React.ComponentType<{ className?: string }>>)[name] ?? Icons.Sparkles;
+  const Cmp =
+    (Icons as unknown as Record<string, React.ComponentType<{ className?: string }>>)[name] ??
+    Icons.Sparkles;
   return <Cmp className="h-6 w-6" />;
 }
 
@@ -32,7 +38,9 @@ function ServicesPage() {
         transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
         className="mx-auto max-w-6xl px-6 py-16"
       >
-        <p className="text-sm font-semibold uppercase tracking-widest text-[var(--accent-green)]">Services</p>
+        <p className="text-sm font-semibold uppercase tracking-widest text-[var(--accent-green)]">
+          Services
+        </p>
         <h1 className="mt-2 text-4xl font-extrabold tracking-tight md:text-5xl">
           What I <span className="text-[var(--accent-green)]">Offer</span>
         </h1>
@@ -41,7 +49,9 @@ function ServicesPage() {
         </p>
 
         {isLoading ? (
-          <div className="mt-12 flex justify-center"><Loader2 className="h-6 w-6 animate-spin text-[var(--accent-green)]" /></div>
+          <div className="mt-12 flex justify-center">
+            <Loader2 className="h-6 w-6 animate-spin text-[var(--accent-green)]" />
+          </div>
         ) : (
           <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {services.map((s) => (
